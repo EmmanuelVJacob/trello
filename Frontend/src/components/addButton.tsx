@@ -16,12 +16,12 @@ const AddButton: React.FC<AddButtonProps> = ({ setRandom }) => {
     setRandom(Math.floor(Math.random() * 1000));
   };
   return (
-    <div>
+    <div className="m-6">
       <button
         onClick={openModal}
         className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
       >
-        Add
+        Add new task
       </button>
 
       <CustomModal isOpen={isModalOpen} onRequestClose={closeModal} />

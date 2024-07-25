@@ -6,6 +6,8 @@ const authRouter = express.Router();
 
 authRouter.post("/signup", validateSignup, authController.userSignUp);
 
+authRouter.post('/googleSignUp',authController.googleSignUp)
+
 authRouter.post('/signin', validateLogin, authController.userSignin);
 
 authRouter.get("/logout", authController.logout);

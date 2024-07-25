@@ -14,7 +14,7 @@ const id = userDetails._id
   const access_token = jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "24h",
   });
-
+  
   // setting tokens
   const tokens: tsToken = {
     access_token: access_token

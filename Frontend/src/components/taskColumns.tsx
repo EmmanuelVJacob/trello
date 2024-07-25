@@ -16,6 +16,12 @@ interface TaskProps {
 
 interface TaskColumnsProps {
   taskColumns: TaskProps[];
+  toDo: TaskProps[];
+  inProgress: TaskProps[];
+  done: TaskProps[];
+  setToDo: React.Dispatch<React.SetStateAction<TaskProps[]>>;
+  setInProgress: React.Dispatch<React.SetStateAction<TaskProps[]>>;
+  setDone: React.Dispatch<React.SetStateAction<TaskProps[]>>;
   columnId: string;
   randomNum: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -24,6 +30,12 @@ const TaskColumns: React.FC<TaskColumnsProps> = ({
   taskColumns,
   columnId,
   randomNum,
+  toDo,
+  setDone,
+  setToDo,
+  inProgress,
+  setInProgress,
+  done,
 }) => {
   const [selectedTask, setSelectedTask] = useState<TaskProps | null>(null);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
@@ -74,51 +86,115 @@ const TaskColumns: React.FC<TaskColumnsProps> = ({
     randomNum(Math.floor(Math.random() * 100));
   };
 
-
   return (
-    <Droppable droppableId={columnId}>
-      {(provided, snapshot) => (
-        <div
-          className="bg-white p-4 rounded-lg shadow-md h-full overflow-y-auto"
-          ref={provided.innerRef}
-          {...provided.droppableProps}
-        >
-          {taskColumns.map((item, index) => (
-            <TaskCard
-              key={item._id}
-              id={item._id}
-              createdAt={item.createdAt}
-              title={item.title}
-              description={item.description}
-              status={item.status}
-              onEdit={() => openEditModal(item)} // Pass item to openEditModal
-              onDelete={() => handleDelete(item._id, item?.title)}
-              onMarkAsDone={() => handleTaskDetailView(item)}
-              index={index}
-            />
-          ))}
-          {provided.placeholder}
-
-          {/* Task Details Modal */}
-          {selectedTask && (
-            <TaskDetailsModal
-              isOpen={isDetailsModalOpen}
-              onRequestClose={closeModals}
-              task={selectedTask}
-            />
-          )}
-
-          {/* Edit Task Modal */}
-          {selectedTask && (
-            <EditTaskModal
-              isOpen={isEditModalOpen}
-              onRequestClose={closeModals}
-              task={selectedTask}
-            />
-          )}
+    <>
+      <div className="w-full md:w-1/3 bg-blue-100 p-4 rounded-lg shadow-md h-1/3 md:h-full overflow-hidden">
+        <h2 className="text-center font-bold mb-4">To Do</h2>
+        <div className="overflow-y-auto h-full scrollbar-hide">
+          <Droppable droppableId="To Do">
+            {(provided, snapshot) => (
+              <div
+                className="bg-white p-4 rounded-lg shadow-md h-full overflow-y-auto"
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {toDo.map((item, index) => (
+                  <TaskCard
+                    key={item._id}
+                    id={item._id}
+                    createdAt={item.createdAt}
+                    title={item.title}
+                    description={item.description}
+                    status={item.status}
+                    onEdit={() => openEditModal(item)} // Pass item to openEditModal
+                    onDelete={() => handleDelete(item._id, item?.title)}
+                    onMarkAsDone={() => handleTaskDetailView(item)}
+                    index={index}
+                  />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </div>
+      </div>
+      <div className="w-full md:w-1/3 bg-blue-100 p-4 rounded-lg shadow-md h-1/3 md:h-full overflow-hidden">
+        <h2 className="text-center font-bold mb-4">In Progress</h2>
+        <div className="overflow-y-auto h-full scrollbar-hide">
+          <Droppable droppableId="In Progress">
+            {(provided) => (
+              <div
+                className="bg-white p-4 rounded-lg shadow-md h-full overflow-y-auto"
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {inProgress.map((item, index) => (
+                  <TaskCard
+                    key={item._id}
+                    id={item._id}
+                    createdAt={item.createdAt}
+                    title={item.title}
+                    description={item.description}
+                    status={item.status}
+                    onEdit={() => openEditModal(item)}
+                    onDelete={() => handleDelete(item._id, item?.title)}
+                    onMarkAsDone={() => handleTaskDetailView(item)}
+                    index={index}
+                  />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </div>
+      </div>
+      <div className="w-full md:w-1/3 bg-blue-100 p-4 rounded-lg shadow-md h-1/3 md:h-full overflow-hidden">
+        <h2 className="text-center font-bold mb-4">Completed</h2>
+        <div className="overflow-y-auto h-full scrollbar-hide">
+          <Droppable droppableId="Done">
+            {(provided) => (
+              <div
+                className="bg-white p-4 rounded-lg shadow-md h-full overflow-y-auto"
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {done.map((item, index) => (
+                  <TaskCard
+                    key={item._id}
+                    id={item._id}
+                    createdAt={item.createdAt}
+                    title={item.title}
+                    description={item.description}
+                    status={item.status}
+                    onEdit={() => openEditModal(item)} // Pass item to openEditModal
+                    onDelete={() => handleDelete(item._id, item?.title)}
+                    onMarkAsDone={() => handleTaskDetailView(item)}
+                    index={index}
+                  />
+                ))}
+              </div>
+            )}
+          </Droppable>
+        </div>
+      </div>
+      {/* Task Details Modal */}
+      {selectedTask && (
+        <TaskDetailsModal
+          isOpen={isDetailsModalOpen}
+          onRequestClose={closeModals}
+          task={selectedTask}
+        />
       )}
-    </Droppable>
+
+      {/* Edit Task Modal */}
+      {selectedTask && (
+        <EditTaskModal
+          isOpen={isEditModalOpen}
+          onRequestClose={closeModals}
+          task={selectedTask}
+        />
+      )}
+    </>
   );
 };
 

@@ -45,12 +45,12 @@ const TaskCard: React.FC<TaskCardProps> = ({
   };
   return (
     <Draggable draggableId={id.toString()} index={index}>
-      {(provided, snapshot) => (
+      {(provided) => (
         <div
+          className="bg-white p-4 rounded-lg shadow-md flex justify-between items-start space-x-4 my-1 relative"
+          ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          ref={provided.innerRef}
-          className="bg-white p-4 rounded-lg shadow-md flex justify-between items-start space-x-4 my-1 relative"
         >
           <div className="flex-grow">
             <h3 className="text-lg font-semibold">{title}</h3>

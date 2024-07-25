@@ -42,7 +42,6 @@ const taskController = {
   },
 
   updateTask: async (req: Request, res: Response) => {
-    console.log(req,'this is the update id')
     const { id } = req.params;
     const updates = req.body;
     try {

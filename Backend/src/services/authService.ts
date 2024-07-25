@@ -31,6 +31,33 @@ class Auth {
     }
   }
 
+  async googleSignUp(
+    username: string,
+    email: string
+  ): Promise<User | null> {
+    try {
+      const existingUser = await userModel.findOne({ email });
+      if (existingUser) {
+        return null;
+      }
+
+      await userModel.create({
+        username,
+        email,
+        isGoogle:true
+      });
+
+      const userDetails: User | null = await userModel.findOne({
+        email: email
+      });
+
+      return userDetails;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Failed to create user.");
+    }
+  }
+
   async userSignin(email: string): Promise<User | null> {
     try {
       const user = await userModel.findOne({

@@ -19,8 +19,11 @@ const userSchema = new Schema(
 
     password: {
       type: String,
-      required: true,
       default: "",
+    },
+    isGoogle: {
+      type: Boolean,
+      default: false, // Default to false if not authenticated via Google
     },
   },
   {

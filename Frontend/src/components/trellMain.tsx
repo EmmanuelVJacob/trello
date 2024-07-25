@@ -23,9 +23,30 @@ const TrelloMain: FC = () => {
   const [randomNum, setRandomNum] = useState(1234);
 
   const router = useRouter();
+
+  const updateStatus = async (id: string, status: string) => {
+    try {
+      const res = await axiosInstance.put(`/task/updateTask/${id}`, {
+        status: status,
+      });
+      if (res.status === 200) {
+        setRandomNum(Math.floor(Math.random() * 100));
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   const onDragEnd = (result: DropResult) => {
-    const { destination, source } = result;
+    const { destination, source, draggableId } = result;
     console.log(result, "this is the res");
+    if (!destination) {
+      return;
+    }
+    if (destination.droppableId === source.droppableId) {
+      return;
+    }
+    updateStatus(draggableId, destination.droppableId);
   };
 
   useEffect(() => {
@@ -73,39 +94,41 @@ const TrelloMain: FC = () => {
 
   return (
     <>
-      <AddButton setRandom={setRandomNum} />
       <DragDropContext onDragEnd={onDragEnd}>
+        <AddButton setRandom={setRandomNum} />
         <div className="flex flex-col md:flex-row items-start justify-center h-screen p-4 gap-4">
-          <div className="w-full md:w-1/3 bg-blue-100 p-4 rounded-lg shadow-md h-1/3 md:h-full overflow-hidden">
-            <h2 className="text-center font-bold mb-4">To Do</h2>
-            <div className="overflow-y-auto h-full scrollbar-hide">
-              <TaskColumns
-                taskColumns={toDo}
-                randomNum={setRandomNum}
-                columnId="To_Do"
-              />
-            </div>
+          <TaskColumns
+            taskColumns={toDo}
+            randomNum={setRandomNum}
+            columnId="To_Do"
+            toDo={toDo}
+            setToDo={setToDo}
+            inProgress={inProgress}
+            setInProgress={setInProgress}
+            done={done}
+            setDone={setDone}
+          />
+
+          {/* <div className="w-full md:w-1/3 bg-yellow-100 p-4 rounded-lg shadow-md h-1/3 md:h-full overflow-hidden">
+          <h2 className="text-center font-bold mb-4">In Progress</h2>
+          <div className="overflow-y-auto h-full scrollbar-hide">
+            <TaskColumns
+              taskColumns={inProgress}
+              randomNum={setRandomNum}
+              columnId="In_Progress"
+            />
           </div>
-          <div className="w-full md:w-1/3 bg-yellow-100 p-4 rounded-lg shadow-md h-1/3 md:h-full overflow-hidden">
-            <h2 className="text-center font-bold mb-4">In Progress</h2>
-            <div className="overflow-y-auto h-full scrollbar-hide">
-              <TaskColumns
-                taskColumns={inProgress}
-                randomNum={setRandomNum}
-                columnId="In_Progress"
-              />
-            </div>
+        </div>
+        <div className="w-full md:w-1/3 bg-green-100 p-4 rounded-lg shadow-md h-1/3 md:h-full overflow-hidden">
+          <h2 className="text-center font-bold mb-4">Done</h2>
+          <div className="overflow-y-auto h-full scrollbar-hide">
+            <TaskColumns
+              taskColumns={done}
+              randomNum={setRandomNum}
+              columnId="Done"
+            />
           </div>
-          <div className="w-full md:w-1/3 bg-green-100 p-4 rounded-lg shadow-md h-1/3 md:h-full overflow-hidden">
-            <h2 className="text-center font-bold mb-4">Done</h2>
-            <div className="overflow-y-auto h-full scrollbar-hide">
-              <TaskColumns
-                taskColumns={done}
-                randomNum={setRandomNum}
-                columnId="Done"
-              />
-            </div>
-          </div>
+        </div> */}
         </div>
       </DragDropContext>
     </>

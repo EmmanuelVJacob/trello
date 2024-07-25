@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const isBrowser = typeof window !== "undefined";
-
 const axiosInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
   timeout: 1000,
@@ -10,5 +9,7 @@ const axiosInstance = axios.create({
     authorization: isBrowser ? `Bearer ${localStorage?.getItem("accessToken")}` : "",
   },
 });
+
+console.log(axiosInstance)
 
 export default axiosInstance;
