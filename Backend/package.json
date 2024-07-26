@@ -1,7 +1,6 @@
 {
   "scripts": {
     "start": "nodemon --exec ts-node src/server.ts",
-    "dev": "nodemon --exec ts-node src/server.ts",
     "build":"npm i"
   },
   "devDependencies": {
