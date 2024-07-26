@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 
 // CORS configuration
-const allowedOrigins = ["https://trello-2backend2.onrender.com"];
+const allowedOrigins = ["http://localhost:3000"];
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -28,11 +28,13 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
     credentials: true,
   })
 );
 
-app.use(morgan('common'));
+app.use(morgan("common"));
 
 // Connect mongodb
 connectMongoDB();
@@ -42,7 +44,7 @@ app.use("/api", productsRouter);
 app.use("/api/task", taskRouter);
 
 // Serve static files from the 'upload' directory
-app.use('/upload', express.static(path.join(__dirname, '../upload')))
+app.use("/upload", express.static(path.join(__dirname, "../upload")));
 
 // Start server
 const PORT = process.env.PORT || 3001;
