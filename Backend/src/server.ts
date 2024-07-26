@@ -12,7 +12,7 @@ import helmet from "helmet";
 
 const app = express();
 const allowedOrigins = [
-  "https://trello-2frontend2.onrender.com/",
+  "https://trello-2frontend2.onrender.com",
   "http://localhost:3000" // Add localhost for testing
 ];
 
