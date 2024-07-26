@@ -18,17 +18,8 @@ app.use(express.json());
 const allowedOrigins = ["https://trello-2backend2.onrender.com"];
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-
-      // Check if the origin is in the allowed list
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
+    origin: '*', // This allows any origin
+    credentials: true, // Optional, if you need to allow cookies or authentication headers
   })
 );
 
