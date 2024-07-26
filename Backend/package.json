@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "nodemon --exec ts-node src/server.ts",
-    "build":"npm i"
+     "build": "tsc"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

@@ -1,3 +1,4 @@
 .env
 upload/
 /node_modules
+dist/
