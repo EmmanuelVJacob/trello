@@ -6,7 +6,6 @@ const verifyJwtToken = (req: any, res: Response, next: NextFunction) => {
     let token = req.headers["authorization"];
 
 
-    console.log(token)
     if (token == null) {
       return res.status(401).json({ message: "No token provided" });
     }
@@ -23,7 +22,6 @@ const verifyJwtToken = (req: any, res: Response, next: NextFunction) => {
           return res.status(403).json({ message: "Invalid token" });
         }
         // Attach the user information to the request object
-        console.log(user)
         req.userDetails = user;
         next();
       }

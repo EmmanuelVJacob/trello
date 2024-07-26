@@ -5,9 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import React from "react";
 import Modal from "react-modal";
-import { FaTimes } from "react-icons/fa"; // Importing a close icon
+import { FaTimes } from "react-icons/fa"; 
 
-// Set the app element for accessibility
 Modal.setAppElement('#__next');
 
 interface CustomModalProps {

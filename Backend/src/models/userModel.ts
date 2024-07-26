@@ -23,7 +23,7 @@ const userSchema = new Schema(
     },
     isGoogle: {
       type: Boolean,
-      default: false, // Default to false if not authenticated via Google
+      default: false, 
     },
   },
   {

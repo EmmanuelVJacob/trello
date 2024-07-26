@@ -10,6 +10,4 @@ const axiosInstance = axios.create({
   },
 });
 
-console.log(axiosInstance)
-
 export default axiosInstance;

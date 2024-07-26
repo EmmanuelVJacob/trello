@@ -6,7 +6,6 @@ import { funJwt } from "../utils/jwtFuc";
 import jwt from "jsonwebtoken";
 
 const signUpController = {
-  // User Signup
   userSignUp: async (
     req: Request<{ email: string; password: string; username: string }>,
     res: Response<{ data: UserOutput | null; message: string }>
@@ -16,7 +15,6 @@ const signUpController = {
 
       const authService = new Auth();
 
-      // Bcrypt password before inserting into db
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -60,9 +58,8 @@ const signUpController = {
     res: Response<{ data: UserOutput | null; message: string }>
   ) => {
     try {
-      const { credential } = req.body.credentials;
+      const { credential } = req.body?.credentials;
 
-      // Decode the JWT token
       const decodedToken = jwt.decode(credential);
 
       if (!decodedToken) {
@@ -70,20 +67,16 @@ const signUpController = {
       }
       const authService = new Auth();
 
-      // Destructure the name and email from the decoded token
       const { name, email } = decodedToken as { name: string; email: string };
 
-      // Check if the user already exists
       const existingUser = await authService.userSignin(email);
 
       if (existingUser) {
-        // If user exists, log them in
         const { tokens } = await funJwt(existingUser);
 
-        // Set cookies
         res.cookie("accessToken", tokens?.access_token, {
           httpOnly: true,
-          maxAge: 3600000, // 1 hour
+          maxAge: 3600000, 
           path: "/",
         });
 
@@ -96,7 +89,6 @@ const signUpController = {
           message: "User login successful!",
         });
       } else {
-        // If user doesn't exist, create a new user
         const userDetails: User | null = await authService.googleSignUp(
           name,
           email
@@ -105,10 +97,9 @@ const signUpController = {
         if (userDetails) {
           const { tokens } = await funJwt(userDetails);
 
-          // Set cookies
           res.cookie("accessToken", tokens?.access_token, {
             httpOnly: true,
-            maxAge: 3600000, // 1 hour
+            maxAge: 3600000,
             path: "/",
           });
 
@@ -136,7 +127,6 @@ const signUpController = {
     }
   },
 
-  // User Login
   userSignin: async (
     req: Request<{ email: string; password: string }>,
     res: Response<{ data: UserOutput; message: string }>
@@ -172,13 +162,11 @@ const signUpController = {
           });
         }
 
-        // Get tokens and give to client
         const { tokens } = await funJwt(userDetails);
 
-        // Set cookies
         res.cookie("accessToken", tokens?.access_token, {
           httpOnly: true,
-          maxAge: 3600000, // 1 hour
+          maxAge: 3600000, 
           path: "/",
         });
 
@@ -200,7 +188,6 @@ const signUpController = {
     }
   },
 
-  // Logout
   logout: async (
     req: Request<{}>,
     res: Response<{ success: boolean; message: string }>

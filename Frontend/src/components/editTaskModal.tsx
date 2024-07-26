@@ -1,13 +1,13 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { FaTimes } from 'react-icons/fa'; // Importing a close icon
+import { FaTimes } from 'react-icons/fa';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import axiosInstance from '../utils/axiosInstance'; // Adjust import if necessary
+import axiosInstance from '../utils/axiosInstance';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-Modal.setAppElement('#__next'); // Set app element for accessibility
+Modal.setAppElement('#__next'); 
 
 interface EditTaskModalProps {
   isOpen: boolean;
@@ -23,7 +23,7 @@ interface EditTaskModalProps {
 const EditTaskModal: React.FC<EditTaskModalProps> = ({ isOpen, onRequestClose, task }) => {
   const updateTask = async (values: { title: string; description: string; status: string }) => {
     try {
-      const res = await axiosInstance.put(`/task/updateTask/${task._id}`, values);
+      const res = await axiosInstance.put(`/task/updateTask/${task?._id}`, values);
       if (res?.status === 200) {
         toast.success("Task updated successfully", { autoClose: 3000 });
         onRequestClose(); 
@@ -64,9 +64,9 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ isOpen, onRequestClose, t
         <h2 className="text-2xl font-semibold mb-4">Edit Task</h2>
         <Formik
           initialValues={{
-            title: task.title,
-            description: task.description || "",
-            status: task.status,
+            title: task?.title,
+            description: task?.description || "",
+            status: task?.status,
           }}
           validationSchema={taskValidationSchema}
           onSubmit={async (values, { setSubmitting }) => {

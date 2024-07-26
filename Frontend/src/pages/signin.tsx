@@ -23,25 +23,25 @@ const Signin: FC = () => {
       .then((res: any) => {
         if (res.status === 200) {
           // setting access token
-          localStorage.setItem("accessToken", res.data?.data?.accessToken);
-          localStorage.setItem("userDetails", res.data?.data?.username);
+          localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+          localStorage.setItem("userDetails", res?.data?.data?.username);
 
           toast.success(res?.data?.message, {
             autoClose: 3000,
           });
 
-            router.push("/");
+          router.push("/");
         } else {
           toast.error(res?.data?.message);
-          console.log(`Error ${res.data}`);
+          console.log(`Error ${res?.data}`);
         }
       })
       .catch((error) => {
-        toast.error(error.response.data?.message || "An error occurred");
+        toast.error(error?.response?.data?.message || "An error occurred");
         console.error("Unexpected error:", error);
       })
       .finally(() => {
-        setIsSubmittingForm(false); // Reset button state after API call completes
+        setIsSubmittingForm(false);
       });
   }, 1000);
 
@@ -109,7 +109,6 @@ const Signin: FC = () => {
 
                     debouncedSubmit(values);
 
-                    console.log(values, "values from formik");
                     setSubmitting(false);
                   }}
                 >
@@ -169,56 +168,10 @@ const Signin: FC = () => {
                       </button>
                       <GoogleLogin
                         onSuccess={(credentialResponse) => {
-                          console.log(credentialResponse);
                           googleSignUp(credentialResponse);
-                          // axios
-                          //   .post(
-                          //     `${UserBaseURL}/auth/googleSignIn`,
-                          //     credentialResponse
-                          //   )
-                          //   .then((res) => {
-                          //     if (!res.data.success) {
-                          //       if (
-                          //         res.data.message === "User does not exist"
-                          //       ) {
-                          //         toast.error(res.data.message);
-                          //         setEmailErr(res.data.message);
-                          //       } else if (
-                          //         res.data.message === "User is blocked"
-                          //       ) {
-                          //         toast.error(res.data.message);
-                          //         setEmailErr(res.data.message);
-                          //       }
-                          //     }
-                          //     if (res.data.message === "Login Success") {
-                          //       toast.success("Login success");
-                          //       localStorage.setItem(
-                          //         "jwtToken",
-                          //         JSON.stringify(res.data.token)
-                          //       );
-                          //       localStorage.setItem(
-                          //         "user",
-                          //         JSON.stringify(res.data.user)
-                          //       );
-                          //       window.location.href = "/";
-                          //     }
-                          //   })
-                          //   .catch((err) => {
-                          //     console.log(err, "login error");
-                          //     toast.error(err?.message);
-                          //     if (
-                          //       err?.message ===
-                          //       "Request failed with status code 400"
-                          //     ) {
-                          //     //   setEmailErr("User does not exist");
-                          //     // } else {
-                          //     //   setEmailErr(err?.message);
-                          //     // }
-                          //   });
                         }}
                         onError={() => {
                           console.log("login faliled");
-                          // setEmailErr("Login Failed");
                         }}
                         type="standard"
                         size="large"

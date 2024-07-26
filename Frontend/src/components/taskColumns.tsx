@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import TaskCard from "./taskCard";
 import { Droppable } from "react-beautiful-dnd";
-import TaskDetailsModal from "./TaskDetailsModal"; // Import the TaskDetailsModal
-import EditTaskModal from "./editTaskModal"; // Import the EditTaskModal
+import TaskDetailsModal from "./TaskDetailsModal"; 
+import EditTaskModal from "./editTaskModal"; 
 import axiosInstance from "@/utils/axiosInstance";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
@@ -62,7 +62,7 @@ const TaskColumns: React.FC<TaskColumnsProps> = ({
         return;
       }
       const res = await axiosInstance.delete(`/task/removeTask/${id}`);
-      if (res.status === 200) {
+      if (res?.status === 200) {
         toast.success(res?.data?.message);
         randomNum(Math.floor(Math.random() * 100));
       } else {
@@ -75,14 +75,14 @@ const TaskColumns: React.FC<TaskColumnsProps> = ({
   };
 
   const openEditModal = (task: TaskProps) => {
-    setSelectedTask(task); // Set the selected task
-    setIsEditModalOpen(true); // Open the edit modal
+    setSelectedTask(task); 
+    setIsEditModalOpen(true); 
   };
 
   const closeModals = () => {
     setIsDetailsModalOpen(false);
     setIsEditModalOpen(false);
-    setSelectedTask(null); // Clear the selected task
+    setSelectedTask(null); 
     randomNum(Math.floor(Math.random() * 100));
   };
 
@@ -100,14 +100,14 @@ const TaskColumns: React.FC<TaskColumnsProps> = ({
               >
                 {toDo.map((item, index) => (
                   <TaskCard
-                    key={item._id}
-                    id={item._id}
-                    createdAt={item.createdAt}
-                    title={item.title}
-                    description={item.description}
-                    status={item.status}
-                    onEdit={() => openEditModal(item)} // Pass item to openEditModal
-                    onDelete={() => handleDelete(item._id, item?.title)}
+                    key={item?._id}
+                    id={item?._id}
+                    createdAt={item?.createdAt}
+                    title={item?.title}
+                    description={item?.description}
+                    status={item?.status}
+                    onEdit={() => openEditModal(item)} 
+                    onDelete={() => handleDelete(item?._id, item?.title)}
                     onMarkAsDone={() => handleTaskDetailView(item)}
                     index={index}
                   />
@@ -130,14 +130,14 @@ const TaskColumns: React.FC<TaskColumnsProps> = ({
               >
                 {inProgress.map((item, index) => (
                   <TaskCard
-                    key={item._id}
-                    id={item._id}
-                    createdAt={item.createdAt}
-                    title={item.title}
-                    description={item.description}
-                    status={item.status}
+                    key={item?._id}
+                    id={item?._id}
+                    createdAt={item?.createdAt}
+                    title={item?.title}
+                    description={item?.description}
+                    status={item?.status}
                     onEdit={() => openEditModal(item)}
-                    onDelete={() => handleDelete(item._id, item?.title)}
+                    onDelete={() => handleDelete(item?._id, item?.title)}
                     onMarkAsDone={() => handleTaskDetailView(item)}
                     index={index}
                   />
@@ -160,14 +160,14 @@ const TaskColumns: React.FC<TaskColumnsProps> = ({
               >
                 {done.map((item, index) => (
                   <TaskCard
-                    key={item._id}
-                    id={item._id}
-                    createdAt={item.createdAt}
-                    title={item.title}
-                    description={item.description}
-                    status={item.status}
+                    key={item?._id}
+                    id={item?._id}
+                    createdAt={item?.createdAt}
+                    title={item?.title}
+                    description={item?.description}
+                    status={item?.status}
                     onEdit={() => openEditModal(item)} // Pass item to openEditModal
-                    onDelete={() => handleDelete(item._id, item?.title)}
+                    onDelete={() => handleDelete(item?._id, item?.title)}
                     onMarkAsDone={() => handleTaskDetailView(item)}
                     index={index}
                   />

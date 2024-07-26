@@ -5,9 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import React from "react";
 import Modal from "react-modal";
-import { FaTimes } from "react-icons/fa"; // Importing a close icon
+import { FaTimes } from "react-icons/fa"; 
 
-// Set the app element for accessibility
 
 interface UpdateTaskModalProps {
   isOpen: boolean;
@@ -22,7 +21,7 @@ const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({
 }) => {
   const updateTask = async (values: { title: string; description: string; status: string }) => {
     try {
-      const res = await axiosInstance.put(`/task/updateTask/${task.id}`, values);
+      const res = await axiosInstance.put(`/task/updateTask/${task?.id}`, values);
       if (res?.status === 200) {
         toast.success("Task updated successfully", { autoClose: 3000 });
         onRequestClose(); 
@@ -63,9 +62,9 @@ const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({
         <h2 className="text-2xl font-semibold mb-4">Update Task</h2>
         <Formik
           initialValues={{
-            title: task.title,
-            description: task.description,
-            status: task.status,
+            title: task?.title,
+            description: task?.description,
+            status: task?.status,
           }}
           validationSchema={taskValidationSchema}
           onSubmit={async (values, { setSubmitting }) => {

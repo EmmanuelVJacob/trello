@@ -11,6 +11,7 @@ const AddButton: React.FC<AddButtonProps> = ({ setRandom }) => {
   const openModal = () => {
     setIsModalOpen(true);
   };
+  
   const closeModal = () => {
     setIsModalOpen(false);
     setRandom(Math.floor(Math.random() * 1000));

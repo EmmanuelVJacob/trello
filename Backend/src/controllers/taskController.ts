@@ -5,11 +5,10 @@ const taskController = {
   getTasks: async (req: any, res: Response) => {
     try {
       const taskService = new TaskService();
-      console.log(req.userDetails)
-      const tasks = await taskService.getTasks(req.userDetails.id);
+      const tasks = await taskService.getTasks(req?.userDetails.id);
       res.json(tasks);
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      res.status(500).json({ message: error?.message });
     }
   },
 
@@ -21,7 +20,7 @@ const taskController = {
         title,
         description,
         status,
-        req.userDetails.id
+        req.userDetails?.id
       );
       res.json(task);
     } catch (error: any) {
@@ -30,7 +29,7 @@ const taskController = {
   },
 
   getTaskById: async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { id } = req?.params;
     try {
       const taskService = new TaskService();
 
@@ -49,7 +48,7 @@ const taskController = {
       const task = await taskService.updateTask(id, updates);
       res.json(task);
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      res.status(500).json({ message: error?.message });
     }
   },
 

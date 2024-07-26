@@ -1,8 +1,8 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { FaTimes } from 'react-icons/fa'; // Import close icon
+import { FaTimes } from 'react-icons/fa';
 
-Modal.setAppElement('#__next'); // Set app element for accessibility
+Modal.setAppElement('#__next');
 
 interface TaskDetailsModalProps {
   isOpen: boolean;
@@ -38,15 +38,15 @@ const TaskDetailsModal: React.FC<TaskDetailsModalProps> = ({ isOpen, onRequestCl
         <div className="space-y-4">
           <div>
             <h3 className="text-lg font-medium">Title</h3>
-            <p className="text-gray-700">{task.title}</p>
+            <p className="text-gray-700">{task?.title}</p>
           </div>
           <div>
             <h3 className="text-lg font-medium">Description</h3>
-            <p className="text-gray-700">{task.description || 'No description'}</p>
+            <p className="text-gray-700">{task?.description || 'No description'}</p>
           </div>
           <div>
             <h3 className="text-lg font-medium">Status</h3>
-            <p className="text-gray-700">{task.status}</p>
+            <p className="text-gray-700">{task?.status}</p>
           </div>
           <div>
             <h3 className="text-lg font-medium">Created At</h3>

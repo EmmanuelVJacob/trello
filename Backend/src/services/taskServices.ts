@@ -20,7 +20,6 @@ class TaskService {
 
   async getTasks(userId: string): Promise<Task[] | undefined> {
     try {
-      console.log(userId,'this is the userId')
       const tasks = await taskModel.find({ user: userId }) .sort({ createdAt: -1 });
       return tasks;
     } catch (error) {

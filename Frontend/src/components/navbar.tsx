@@ -13,10 +13,8 @@ const Navbar: FC = () => {
   useEffect(() => {
     const userDetails: any = localStorage.getItem("userDetails");
 
-    console.log(userDetails, "userDetails");
 
     if (!userDetails) {
-      console.log("No user details !!!!");
       setisLoggedIn(false);
       return;
     }
@@ -25,13 +23,13 @@ const Navbar: FC = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("userDetails");
-    localStorage.removeItem("accessToken");
+    localStorage?.removeItem("userDetails");
+    localStorage?.removeItem("accessToken");
 
     axiosInstance
       .get("/logout")
       .then((res) => {
-        if (res.status === 200) {
+        if (res?.status === 200) {
           toast.success(res?.data?.message);
           setisLoggedIn(false);
           router.push("/");
