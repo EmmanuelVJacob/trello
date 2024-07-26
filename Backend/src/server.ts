@@ -16,30 +16,29 @@ const allowedOrigins = [
 ];
 
 // Apply CORS middleware
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      console.log(`Origin: ${origin}`); // Log the origin for debugging
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       console.log(`Origin: ${origin}`); // Log the origin for debugging
 
-      // Allow requests with no origin (like mobile apps, curl requests)
-      if (!origin) return callback(null, true);
+//       // Allow requests with no origin (like mobile apps, curl requests)
+//       if (!origin) return callback(null, true);
 
-      // Check if the origin is in the allowed list
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-    credentials: true,
-  })
-);
+//       // Check if the origin is in the allowed list
+//       if (allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     preflightContinue: false,
+//     optionsSuccessStatus: 204,
+//     credentials: true,
+//   })
+// );
 // Middleware
 app.use(express.json());
 
-// CORS configuration
 
 app.use(morgan("common"));
 
