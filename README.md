@@ -7,7 +7,7 @@ To run the project locally, follow these steps:
 1. Clone the repository:
 
    ```   
-   git clone https://github.com/Aswin-ER/E-commerce.git
+   git clone https://github.com/EmmanuelVJacob/trello.git
    ```
 
    
@@ -79,22 +79,14 @@ To run the project locally, follow these steps:
    Rename .env.example file to .env for all the environment variables required for the Backend.
 
 
-## Add Product(Postman)
+## Get Task(Postman)
    URL: 
    ``` 
-   http://localhost:3001/api/addProduct 
+   http://localhost:3001/api/task/getAllTask 
    ```
-   Method: POST
+   Method: GET
    Headers:
 
     Key: authorization
     Value:<your-access-token> //Give accessToken that get's from response after Successfull Login.
 
-   Body (form-data):
-
-    Key: title, Value: Product Title, Type: Text
-    Key: price, Value: 19.99, Type: Text
-    Key: description, Value: Product Description, Type: Text
-    Key: category, Value: Category Name, Type: Text
-    Key: featured, Value: true, Type: Text
-    Key: image, Value: Select file, Type: File
