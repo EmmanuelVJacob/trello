@@ -31,13 +31,10 @@ app.use(cors({
       callback(new Error("Not allowed by CORS"));
     }
   },
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
   credentials: true,
 }));
 
 // Apply Helmet for security headers
-app.use(helmet());
 
 // Adjust referrer policy if needed
 // app.use(helmet.referrerPolicy({ policy: 'no-referrer-when-downgrade' })); // Change this policy as needed
