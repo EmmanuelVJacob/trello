@@ -34,9 +34,7 @@ const Navbar: FC = () => {
         if (res.status === 200) {
           toast.success(res?.data?.message);
           setisLoggedIn(false);
-          setTimeout(() => {
-            router.push("/");
-          }, 3000);
+          router.push("/");
         } else {
           console.log(`Error ${res?.data}`);
         }

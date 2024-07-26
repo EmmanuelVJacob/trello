@@ -30,9 +30,7 @@ const Signin: FC = () => {
             autoClose: 3000,
           });
 
-          setTimeout(() => {
             router.push("/");
-          }, 3000);
         } else {
           toast.error(res?.data?.message);
           console.log(`Error ${res.data}`);

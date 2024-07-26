@@ -21,9 +21,8 @@ const Signup: FC = () => {
       .then((res: any) => {
         if (res.status === 200) {
           toast.success(res?.data?.message, { autoClose: 3000 });
-          setTimeout(() => {
-            router.push("/signin");
-          }, 3000);
+
+          router.push("/signin");
         } else {
           toast.error(res?.data?.message);
           console.log(`Error ${res.data}`);
@@ -83,7 +82,7 @@ const Signup: FC = () => {
         <section className="bg-gray-900 dark:bg-white">
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <h1 className="flex items-center mb-6 text-2xl font-semibold text-white dark:text-black">
-             Trello
+              Trello
             </h1>
 
             <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
