@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 
 // CORS configuration
-const allowedOrigins = ["http://localhost:3000"];
+const allowedOrigins = ["https://trello-2backend2.onrender.com"];
 app.use(
   cors({
     origin: function (origin, callback) {
