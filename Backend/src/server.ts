@@ -10,35 +10,36 @@ import path from "path";
 import taskRouter from "./routes/taskRoutes";
 
 const app = express();
+const allowedOrigins = [
+  "https://trello-2backend2.onrender.com",
+  "http://localhost:3000", // Add localhost for testing
+];
 
+// Apply CORS middleware
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      console.log(`Origin: ${origin}`); // Log the origin for debugging
+
+      // Allow requests with no origin (like mobile apps, curl requests)
+      if (!origin) return callback(null, true);
+
+      // Check if the origin is in the allowed list
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: true,
+  })
+);
 // Middleware
 app.use(express.json());
 
 // CORS configuration
-const allowedOrigins = [
-  "https://trello-2backend2.onrender.com",
-  "http://localhost:3000" // Add localhost for testing
-];
-
-// Apply CORS middleware
-app.use(cors({
-  origin: function (origin, callback) {
-    console.log(`Origin: ${origin}`); // Log the origin for debugging
-
-    // Allow requests with no origin (like mobile apps, curl requests)
-    if (!origin) return callback(null, true);
-
-    // Check if the origin is in the allowed list
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-  credentials: true,
-}));
 
 app.use(morgan("common"));
 
